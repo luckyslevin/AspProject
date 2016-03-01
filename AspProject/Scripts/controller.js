@@ -1,0 +1,38 @@
+$(document).ready(function(){
+	$('#prod').click(function(){
+		$('#Customer').hide();
+		$('#Product').hide();
+		$('#Order').hide();
+	});
+});
+
+$(document).ready(function(){
+	$('#cust').click(function(){
+		$('#Customer').hide();
+		$('#Product').hide();
+		$('#Order').hide();
+	});
+});
+$(document).ready(function(){
+	$('#ord').click(function(){
+		$('#Customer').hide();
+		$('#Product').hide();
+		$('#Order').hide();
+	});
+});
+
+$(document).ready(function(){
+	$('#prod').click(function(){
+		$('#Product').show();
+	});
+});
+$(document).ready(function(){
+	$('#cust').click(function(){
+		$('#Customer').show();
+	});
+});
+$(document).ready(function(){
+	$('#ord').click(function(){
+		$('#Order').show();
+	});
+});

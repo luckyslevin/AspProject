@@ -1,0 +1,627 @@
+﻿﻿@{
+    ViewBag.Title = "Home Page";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Jar</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Scripts/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Scripts/media/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+    <script>
+    window.onload=function(){
+        $('#Customer').hide();
+        $('#Product').hide();
+        $('#Order').hide();
+        $('#Order').show();
+    };
+    </script>
+</head>
+<body >
+
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">ASP Project </a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#Product" id="prod">Product Management</a></li>
+                        <li><a href="#Customer" id="cust">Customer Management</a></li>
+                        <li><a href="#Order" id="ord">Order Management</a></li>
+
+                    </ul>
+                    
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Product Div -->
+    <div id="Product">
+        <div class="container">
+            <div class="col-lg-12"><br><br>   <br><br> </div>
+
+            <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#addproduct" ><i class="glyphicon glyphicon-plus"></i>Add product</button>
+            <table id="products" class="table table-striped table-bordered dt-responsive nowrap" cellpadding="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Product name</th>
+                        <th>Description</th>
+                        <th>Total Price</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+
+                    </tr>
+                </thead>
+                <tbody id="product_l"></tbody>
+
+            </table>
+        </div>
+
+
+        <div class="modal fade" id="addproduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">   Add product</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">Product name:</label>
+                                <input type="text" class="form-control" id="prod_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">Description:</label>
+                                <input type="text" class="form-control" id="prod_desc">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">Price:</label>
+                                <input type="number" class="form-control" id="prod_price">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">Quatity:</label>
+                                <input type="number" class="form-control" id="prod_quaty">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" id="add_products" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editproduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">   Add product</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">Product name:</label>
+                                <input type="text" class="form-control" id="edit_prod_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">Description:</label>
+                                <input type="text" class="form-control" id="edit_prod_desc">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">Price:</label>
+                                <input type="number" class="form-control" id="edit_prod_price">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">Quatity:</label>
+                                <input type="number" class="form-control" id="edit_prod_quaty">
+                                <input type="hidden" class="form-control" id="edit_prod_id">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" id="edit_product" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Div -->
+    <div id="Customer">
+        <div class="container">
+            <div class="col-lg-12"><br><br>   <br><br> </div>
+            <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#addcustomer" ><i class="glyphicon glyphicon-plus"></i>   Add Customer</button>
+            <table id="customers" class="table table-striped table-bordered dt-responsive nowrap" cellpadding="0" width="100%"> 
+                <thead>
+                    <tr>
+                        <th>Customer name</th>
+                        <th>Address</th>
+                        <th>Contact number</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="cust_list">
+                   
+                </tbody>  
+
+            </table>
+        </div>
+        <div class="modal fade" id="addcustomer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Add Customer</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">Customer name:</label>
+                                <input type="text" class="form-control" id="cust_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">Address:</label>
+                                <input type="text" class="form-control" id="cust_address">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">Contact number:</label>
+                                <input type="text" class="form-control" id="cust_number">
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" id="add_cust" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editcustomer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Add Customer</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">Customer name:</label>
+                                <input type="text" class="form-control" id="edit_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">Address:</label>
+                                <input type="text" class="form-control" id="edit_address">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">Contact number:</label>
+                                <input type="text" class="form-control" id="edit_number">
+                                <input type="hidden" class="form-control" id="edit_id">
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" id="edit_cust" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+      
+    </script>
+            
+    <!-- OrderDiv -->
+    <div id="Order">
+        <div class="container">
+            <div class="col-lg-12"><br><br>   <br><br> </div>
+            <button type="button" class="btn btn-primary pull-right" id="getorder" data-toggle="modal" data-target="#order"   ><i class="glyphicon glyphicon-plus"></i>Add Order</button>
+            <table id="orders" class="table table-striped table-bordered dt-responsive nowrap" cellpadding="0" width="100%">
+                <thead>
+                    <tr>
+
+                        <th>Customer ID</th>
+                        <th>Product ID</th>
+
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                        <th>Action</th>
+
+                    </tr>
+                    
+                    </thead>
+                <tbody id="orderlist">
+
+                </tbody>
+</table>
+
+        </div>
+
+
+        <div class="modal fade" id="order" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">   Add Order</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">Customer ID:</label>
+                                <select class="form-control" id="customer_list">
+                                    <option active>Select customer</option>
+                                    
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">Product ID:</label>
+                                <select class="form-control" id="product_list">
+                                    <option active >Select product</option>
+                                   
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">Quatity:</label>
+                                <input type="number" class="form-control" id="order_quaty">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" id="addorders" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/media/js/jquery.dataTables.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+     <script>
+         var custable,prodtable,ordertable;
+
+         $(document).ready(function () {
+             custable = $("#customers").DataTable();
+             prodtable = $("#products").DataTable();
+             ordertable = $("#orders").DataTable();
+             updateTable();
+             updateProduct();
+             updateOrder();
+             $('#add_cust').click(function () {
+                 var data = {};
+                 data.Name = $('#cust_name').val();
+                 data.Address = $('#cust_address').val();
+                 data.Contactnum = $('#cust_number').val();
+                 data.Status = 1;
+
+                 $.ajax({
+                     url: '/api/customers',
+                     type: 'POST',
+                     data: JSON.stringify(data),
+                     contentType: 'application/json;charset=utf-8',
+                     success: function (result, status, xhr) {
+                         updateTable();
+                     }
+                 });
+             });
+
+             $('#edit_cust').click(function () {
+                 var data = {};
+                 data.Name = $('#edit_name').val();
+                 data.Address = $('#edit_address').val();
+                 data.Contactnum = $('#edit_number').val();
+                 data.Status = 1;
+                 data.Id = parseInt($("#edit_id").val());
+                 $.ajax({
+                     url: '/api/customers/'+parseInt($("#edit_id").val()),
+                     type: 'PUT',
+                     data: JSON.stringify(data),
+                     contentType: 'application/json;charset=utf-8',
+                     success: function (result, status, xhr) {
+                         updateTable();
+                         alert("Update successfully");
+                     }
+                 });
+             });
+
+             $('#edit_product').click(function () {
+                 var data = {};
+                 data.Name = $('#edit_prod_name').val();
+                 data.Description = $('#edit_prod_desc').val();
+                 data.Quantity = $('#edit_prod_quaty').val();
+                 data.Price = $('#edit_prod_price').val();
+                 data.Status = 1;
+                 data.Id = parseInt($("#edit_prod_id").val());
+                 $.ajax({
+                     url: '/api/products/' + parseInt($("#edit_prod_id").val()),
+                     type: 'PUT',
+                     data: JSON.stringify(data),
+                     contentType: 'application/json;charset=utf-8',
+                     success: function (result, status, xhr) {
+                         updateProduct();
+                         alert("Update successfully");
+                     }
+                 });
+             });
+
+             $('#add_products').click(function () {
+                 var data = {};
+                 data.Name = $('#prod_name').val();
+                 data.Description = $('#prod_desc').val();
+                 data.Quantity = $('#prod_quaty').val();
+                 data.Price = $('#prod_price').val();
+                 data.Status = 1;
+
+                 $.ajax({
+                     url: '/api/products',
+                     type: 'POST',
+                     data: JSON.stringify(data),
+                     contentType: 'application/json;charset=utf-8',
+                     success: function (result, status, xhr) {
+                         updateProduct();
+                     }
+                 });
+             });
+
+             $('#addorders').click(function () {
+                 var datat = {};
+
+                 data.Product_id = $('#product_list').val();
+                 data.Customer_id = $('#customer_list').val();
+                 data.Quantity = $('#order_quaty').val();
+                 $.ajax({
+                     url: '/api/orders',
+                     type: 'POST',
+                     data: JSON.stringify(data),
+                     contentType: 'application/json;charset=utf-8',
+                     success: function (result, status, xhr) {
+                         updateOrder();
+                     }
+                 });
+             });
+
+         });
+         function updateTable() {
+             var x = $('#customers').DataTable();
+             x.clear().draw();
+             $.ajax({
+                 url: '/api/customers',
+                 cache: false,
+                 type: 'GET',
+                 contentType: 'application/json; charset=utf-8',
+                 data: {},
+                 success: function (results) {
+                     $.each(results, function (index, value) {
+                         custable.row.add([
+                            results[index]['Name'],
+                            results[index]['Address'],
+                            results[index]['Contactnum'],
+                            results[index]['Status'] == 1 ? "Active" : "Inactive",
+                            
+                            '<button id="edit"   class="glyphicon glyphicon-pencil" title="Edit" onclick="edit(this.value)" value="' + results[index]['Id'] + '">' +  '</button>' + '|' +
+                            '<button id="del" class="glyphicon glyphicon-remove" title="Delete" href="#" onclick="del(this.value)" value="' + results[index]['Id'] + '">'  + '</button>'
+
+                         ]).draw(false);
+                     });
+                 }
+             });
+
+
+         }
+         function updateProduct() {
+             var x = $('#products').DataTable();
+             x.clear().draw();
+             $.ajax({
+                 url: '/api/products',
+                 cache: false,
+                 type: 'GET',
+                 contentType: 'application/json; charset=utf-8',
+                 data: {},
+                 success: function (results) {
+                     console.log(results);
+
+                     $.each(results, function (index, value) {
+                         prodtable.row.add([
+
+                            results[index]['Name'],
+                            results[index]['Description'],
+                            results[index]['Price'],
+                            results[index]['Quantity'],
+                            
+                            results[index]['Status'] == 1 ? "Active" : "Inactive",
+
+                            '<button id="editProduct"   class="glyphicon glyphicon-pencil" title="Edit" onclick="editProduct(this.value)" value="' + results[index]['Id'] + '">' + '</button>' + '|' +
+                            '<button id="delProduct" class="glyphicon glyphicon-remove" title="Delete"  onclick="delProduct(this.value)" value="' + results[index]['Id'] + '">' + '</button>'
+
+                         ]).draw(false);
+                     });
+                 }
+             });
+         }
+         function updateOrder() {
+             var x = $('#orders').DataTable();
+             x.clear().draw();
+             $.ajax({
+                 url: '/api/orders',
+                 cache: false,
+                 type: 'GET',
+                 contentType: 'application/json; charset=utf-8',
+                 data: {},
+                 success: function (results) {
+                     console.log(results);
+
+                     $.each(results, function (index, value) {
+                         ordertable.row.add([
+
+                            results[index]['Customer_id'],
+                              results[index]['Product_id'],
+
+                          results[index]['Quantity'],
+                            results[index]['Total'],
+
+                            
+                            
+                            '<button id="delProduct" class="glyphicon glyphicon-remove" title="Delete"  onclick="delOrder(this.value)" value="' + results[index]['Id'] + '">' + '</button>'
+
+                         ]).draw(false);
+                     });
+                 }
+             });
+         }
+
+
+         function edit(id) {
+             $.ajax({
+                 url: '/api/customers/'+id,
+                 cache: false,
+                 type: 'GET',
+                 contentType: 'application/json; charset=utf-8',
+                 success: function (results) {
+                     $('#editcustomer').modal('show');
+                     $('#edit_name').attr('value', results.Name);
+                     $('#edit_address').attr('value', results.Address);
+                     $('#edit_number').attr('value', results.Contactnum);
+                     $('#edit_id').attr('value', results.Id);
+
+                 }
+             });
+         }
+         function del(id) {
+             $.ajax({
+                 url: '/api/customers/' + id,
+                 cache: false,
+                 type: 'DELETE',
+                 contentType: 'application/json; charset=utf-8',
+                 success: function (results) {
+                     updateTable();
+                     alert("Delete Successfully");
+                 }
+             });
+         }
+
+         function editProduct(id)
+         {
+             $.ajax({
+                 url: '/api/products/' + id,
+                 cache: false,
+                 type: 'GET',
+                 contentType: 'application/json; charset=utf-8',
+                 success: function (results) {
+                     $('#editproduct').modal('show');
+                     $('#edit_prod_name').attr('value', results.Name);
+                     $('#edit_prod_desc').attr('value', results.Description);
+                     $('#edit_prod_price').attr('value', results.Price);
+                     $('#edit_prod_quaty').attr('value', results.Quantity);
+                     $('#edit_prod_id').attr('value', results.Id);
+
+                 }
+             });
+         }
+
+         function delOrder(id) {
+             $.ajax({
+                 url: '/api/orders/' + id,
+                 cache: false,
+                 type: 'DELETE',
+                 contentType: 'application/json; charset=utf-8',
+                 success: function (results) {
+                     updateOrder();
+                     alert("Delete Successfully");
+                 }
+             });
+         }
+
+         function delProduct(id) {
+             $.ajax({
+                 url: '/api/products/' + id,
+                 cache: false,
+                 type: 'DELETE',
+                 contentType: 'application/json; charset=utf-8',
+                 success: function (results) {
+                     updateProduct();
+                     alert("Delete Successfully");
+                 }
+             });
+         }
+
+         $.ajax({
+             url: '/api/products',
+             cache: false,
+             type: 'GET',
+             contentType: 'application/json; charset=utf-8',
+             data: {},
+             success: function (results2) {
+                 console.log("Proucts");
+                 console.log(results2);
+                 $.each(results2, function (indexex, value) {
+                     $('#product_list').append(
+                         '<option>' + results2[indexex].Id + '</option>'
+                         );
+
+                 });
+             }
+         });
+         $('#getorder').ready(function () {
+             $.ajax({
+                 url: '/api/customers',
+                 cache: false,
+                 type: 'GET',
+                 contentType: 'application/json; charset=utf-8',
+                 data: {},
+                 success: function (results) {
+                   
+                     $.each(results, function (index, value) {
+
+                         $('#customer_list').append(
+                             '<option>'+results[index].Id+'</option>'
+                             );
+                     
+                     });
+                 }
+             });
+
+             
+         });
+    </script>
+
+    <script src="~/Scripts/controller.js"></script>
+
+    <script>
+        var data = {};
+    </script>
+</body>
+</html>
+
+
+
+
